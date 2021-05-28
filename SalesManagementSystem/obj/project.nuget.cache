@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "Xu+UST+AndVumVVawz5jpNViJOOVfzfoYqsqeu2WCEWjWiV+eV/GKyWyf5xOPfvtkexwrEvR5Spx+wdj2IkVtA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\anaga\\Source\\repos\\SalesManagementSystem\\SalesManagementSystem\\SalesManagementSystem.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\anaga\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "C:\\Users\\anaga\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\anaga\\.nuget\\packages\\swashbuckle.aspnetcore\\5.6.3\\swashbuckle.aspnetcore.5.6.3.nupkg.sha512",
+    "C:\\Users\\anaga\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\5.6.3\\swashbuckle.aspnetcore.swagger.5.6.3.nupkg.sha512",
+    "C:\\Users\\anaga\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\5.6.3\\swashbuckle.aspnetcore.swaggergen.5.6.3.nupkg.sha512",
+    "C:\\Users\\anaga\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\5.6.3\\swashbuckle.aspnetcore.swaggerui.5.6.3.nupkg.sha512"
+  ],
+  "logs": []
+}
