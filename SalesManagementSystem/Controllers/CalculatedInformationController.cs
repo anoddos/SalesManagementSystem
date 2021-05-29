@@ -21,7 +21,7 @@ namespace SalesManagementSystem.Controllers
         }
         
         [HttpGet("GetSalesOfConsultants")]
-        public IEnumerable<SalesOfConsultants>GetSalesOfConsultants(DateTime startDate,DateTime endDate)
+        public IEnumerable<SalesOfConsultants> GetSalesOfConsultants(DateTime startDate, DateTime endDate)
         {
             return _repository.GetSalesOfConsultants(startDate, endDate);
         } 

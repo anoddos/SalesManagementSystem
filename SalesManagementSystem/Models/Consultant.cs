@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace SalesManagementSystem.Models
 {
     public class Consultant
     {
-        [Key]
+        [JsonIgnore]
         public long Id { get; set; }
         
         [Required]
@@ -27,7 +28,6 @@ namespace SalesManagementSystem.Models
         [DataType(DataType.Date)]
         public DateTime BirthDate { get; set; }
         
-        [Required]
         public long RecommendatorId { get; set; }
     }
 }

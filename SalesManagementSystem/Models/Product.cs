@@ -6,7 +6,7 @@ namespace SalesManagementSystem.Models
 {
     public class Product
     {
-        [Key]
+        [JsonIgnore]
         public long Id { get; set; }
         
         [Required]

@@ -28,7 +28,7 @@ namespace SalesManagementSystem.Controllers
         }
 
         [HttpPut]
-        public int Update(Sale sale)
+        public int Update(long id, Sale sale)
         {
             return _repository.Update(sale);
         }

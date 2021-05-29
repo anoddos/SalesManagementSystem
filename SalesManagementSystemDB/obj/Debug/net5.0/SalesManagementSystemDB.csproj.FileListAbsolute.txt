@@ -1,0 +1,15 @@
+C:\Users\anaga\Source\repos\SalesManagementSystem\SalesManagementSystemDB\bin\Debug\net5.0\SalesManagementSystemDB.deps.json
+C:\Users\anaga\Source\repos\SalesManagementSystem\SalesManagementSystemDB\bin\Debug\net5.0\SalesManagementSystemDB.runtimeconfig.json
+C:\Users\anaga\Source\repos\SalesManagementSystem\SalesManagementSystemDB\bin\Debug\net5.0\SalesManagementSystemDB.runtimeconfig.dev.json
+C:\Users\anaga\Source\repos\SalesManagementSystem\SalesManagementSystemDB\bin\Debug\net5.0\SalesManagementSystemDB.dll
+C:\Users\anaga\Source\repos\SalesManagementSystem\SalesManagementSystemDB\bin\Debug\net5.0\ref\SalesManagementSystemDB.dll
+C:\Users\anaga\Source\repos\SalesManagementSystem\SalesManagementSystemDB\bin\Debug\net5.0\SalesManagementSystemDB.pdb
+C:\Users\anaga\Source\repos\SalesManagementSystem\SalesManagementSystemDB\obj\Debug\net5.0\SalesManagementSystemDB.csprojAssemblyReference.cache
+C:\Users\anaga\Source\repos\SalesManagementSystem\SalesManagementSystemDB\obj\Debug\net5.0\SalesManagementSystemDB.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\anaga\Source\repos\SalesManagementSystem\SalesManagementSystemDB\obj\Debug\net5.0\SalesManagementSystemDB.AssemblyInfoInputs.cache
+C:\Users\anaga\Source\repos\SalesManagementSystem\SalesManagementSystemDB\obj\Debug\net5.0\SalesManagementSystemDB.AssemblyInfo.cs
+C:\Users\anaga\Source\repos\SalesManagementSystem\SalesManagementSystemDB\obj\Debug\net5.0\SalesManagementSystemDB.csproj.CoreCompileInputs.cache
+C:\Users\anaga\Source\repos\SalesManagementSystem\SalesManagementSystemDB\obj\Debug\net5.0\SalesManagementSystemDB.dll
+C:\Users\anaga\Source\repos\SalesManagementSystem\SalesManagementSystemDB\obj\Debug\net5.0\ref\SalesManagementSystemDB.dll
+C:\Users\anaga\Source\repos\SalesManagementSystem\SalesManagementSystemDB\obj\Debug\net5.0\SalesManagementSystemDB.pdb
+C:\Users\anaga\Source\repos\SalesManagementSystem\SalesManagementSystemDB\obj\Debug\net5.0\SalesManagementSystemDB.genruntimeconfig.cache

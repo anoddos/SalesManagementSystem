@@ -22,14 +22,14 @@ namespace SalesManagementSystem.Controllers
         }
 
         [HttpPost]
-        public int Create(Consultant consultant)
+        public int Create([FromBody]Consultant consultant)
         {
             
             return _repository.Create(consultant);
         }
 
-        [HttpPut]
-        public int Update(Consultant consultant)
+        [HttpPut("{id}")]
+        public int Update(long id, [FromBody]Consultant consultant)
         {
             return _repository.Update(consultant);
         }
@@ -41,8 +41,8 @@ namespace SalesManagementSystem.Controllers
             return _repository.Read();
         }
 
-        [HttpDelete]
-        public int Delete(Int64 id)
+        [HttpDelete("{id}")]
+        public int Delete(long id)
         {
             return _repository.Delete(id);
         }

@@ -29,7 +29,7 @@ namespace SalesManagementSystem.Controllers
         }
         
         [HttpPut]
-        public int Update(Product product)
+        public int Update(long id, Product product)
         {
             return _repository.Update(product);
         }

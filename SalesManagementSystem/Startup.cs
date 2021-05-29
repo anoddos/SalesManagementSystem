@@ -10,9 +10,10 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using SalesManagementSystem.Repositories;
 using SalesManagementSystem.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using SalesManagementSystemDB.DataAccess;
 
 namespace SalesManagementSystem
 {
@@ -28,6 +29,11 @@ namespace SalesManagementSystem
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddDbContext<SalesDbContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("Default"));
+            });
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

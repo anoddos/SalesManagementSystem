@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace SalesManagementSystem.Models
 {
     public class SoldItem
     {
-        [Key]
+        [JsonIgnore]
         public long Id { get; set; }
         
         [Required]
