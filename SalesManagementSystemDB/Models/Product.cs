@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SalesManagementSystemDB.Models
 {
-    public partial class Product
+    public class Product
     {
 #nullable disable
         public long Id { get; set; }

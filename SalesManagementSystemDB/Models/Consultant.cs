@@ -2,12 +2,10 @@
 
 namespace SalesManagementSystemDB.Models
 {
-    public partial class Consultant
+    public  class Consultant
     {
 #nullable disable
-        public int Id { get; set; }
-        
-        public Gender Gender { get; set; }
+        public long Id { get; set; }
         
         public String Name { get; set; }
         
@@ -16,7 +14,14 @@ namespace SalesManagementSystemDB.Models
         public long PersonalId { get; set; }
         
         public DateTime BirthDate { get; set; }
+        public int GenderId { get; set; }
+        public Gender Gender { get; set; }
+
 #nullable enable
+        public long? RecommendatorId { get; set; }
+
         public Consultant Recommendator { get; set; }
+
+
     }
 }

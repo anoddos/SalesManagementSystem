@@ -12,12 +12,12 @@ namespace SalesManagementSystem.Repositories
         {
             this._dbContext = dbContext;
         }
-        public int Create(Sale sale)
+        public bool Create(Sale sale)
         {
             throw new System.NotImplementedException();
         }
 
-        public int Delete(long id)
+        public bool Delete(long id)
         {
             throw new System.NotImplementedException();
         }
@@ -27,7 +27,7 @@ namespace SalesManagementSystem.Repositories
             throw new System.NotImplementedException();
         }
 
-        public int Update(Sale sale)
+        public bool Update(Sale sale)
         {
             throw new System.NotImplementedException();
         }

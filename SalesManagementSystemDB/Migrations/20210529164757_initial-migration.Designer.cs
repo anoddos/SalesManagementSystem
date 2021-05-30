@@ -10,8 +10,8 @@ using SalesManagementSystemDB.DataAccess;
 namespace SalesManagementSystemDB.Migrations
 {
     [DbContext(typeof(SalesDbContext))]
-    [Migration("20210529140736_initial")]
-    partial class initial
+    [Migration("20210529164757_initial-migration")]
+    partial class initialmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,28 +23,28 @@ namespace SalesManagementSystemDB.Migrations
 
             modelBuilder.Entity("SalesManagementSystemDB.Models.Consultant", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("GenderId")
+                    b.Property<int>("GenderId")
                         .HasColumnType("int");
 
                     b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<long>("PersonalId")
                         .HasColumnType("bigint");
 
-                    b.Property<int?>("RecommendatorId")
-                        .HasColumnType("int");
+                    b.Property<long?>("RecommendatorId")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
@@ -63,7 +63,7 @@ namespace SalesManagementSystemDB.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
@@ -78,10 +78,10 @@ namespace SalesManagementSystemDB.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Code")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<double>("Price")
                         .HasColumnType("float");
@@ -93,13 +93,13 @@ namespace SalesManagementSystemDB.Migrations
 
             modelBuilder.Entity("SalesManagementSystemDB.Models.Sale", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("ConsultantId")
-                        .HasColumnType("int");
+                    b.Property<long>("ConsultantId")
+                        .HasColumnType("bigint");
 
                     b.Property<DateTime>("TimeStamp")
                         .HasColumnType("datetime2");
@@ -118,11 +118,11 @@ namespace SalesManagementSystemDB.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long?>("ProductId")
+                    b.Property<long>("ProductId")
                         .HasColumnType("bigint");
 
-                    b.Property<int?>("SaleId")
-                        .HasColumnType("int");
+                    b.Property<long?>("SaleId")
+                        .HasColumnType("bigint");
 
                     b.Property<long>("Unit")
                         .HasColumnType("bigint");
@@ -140,7 +140,9 @@ namespace SalesManagementSystemDB.Migrations
                 {
                     b.HasOne("SalesManagementSystemDB.Models.Gender", "Gender")
                         .WithMany()
-                        .HasForeignKey("GenderId");
+                        .HasForeignKey("GenderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("SalesManagementSystemDB.Models.Consultant", "Recommendator")
                         .WithMany()
@@ -155,7 +157,9 @@ namespace SalesManagementSystemDB.Migrations
                 {
                     b.HasOne("SalesManagementSystemDB.Models.Consultant", "Consultant")
                         .WithMany()
-                        .HasForeignKey("ConsultantId");
+                        .HasForeignKey("ConsultantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Consultant");
                 });
@@ -164,10 +168,12 @@ namespace SalesManagementSystemDB.Migrations
                 {
                     b.HasOne("SalesManagementSystemDB.Models.Product", "Product")
                         .WithMany()
-                        .HasForeignKey("ProductId");
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("SalesManagementSystemDB.Models.Sale", null)
-                        .WithMany("SoldProduct")
+                        .WithMany("SoldProducts")
                         .HasForeignKey("SaleId");
 
                     b.Navigation("Product");
@@ -175,7 +181,7 @@ namespace SalesManagementSystemDB.Migrations
 
             modelBuilder.Entity("SalesManagementSystemDB.Models.Sale", b =>
                 {
-                    b.Navigation("SoldProduct");
+                    b.Navigation("SoldProducts");
                 });
 #pragma warning restore 612, 618
         }

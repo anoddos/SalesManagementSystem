@@ -22,12 +22,12 @@ namespace SalesManagementSystem.Models
         public long PersonalId { get; set; }
         
         [Required]
-        public long GenderId { get; set; }
+        public int GenderId { get; set; }
         
         [Required]
         [DataType(DataType.Date)]
         public DateTime BirthDate { get; set; }
         
-        public long RecommendatorId { get; set; }
+        public long? RecommendatorId { get; set; }
     }
 }

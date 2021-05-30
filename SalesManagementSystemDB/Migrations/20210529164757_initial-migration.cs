@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SalesManagementSystemDB.Migrations
 {
-    public partial class initial : Migration
+    public partial class initialmigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -39,14 +39,14 @@ namespace SalesManagementSystemDB.Migrations
                 name: "Consultant",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    GenderId = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(50)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(50)", nullable: false),
                     PersonalId = table.Column<long>(type: "bigint", nullable: false),
-                    BirthDate = table.Column<DateTime>(type: "time", nullable: false),
-                    RecommendatorId = table.Column<int>(type: "int", nullable: true)
+                    BirthDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    GenderId = table.Column<int>(type: "int", nullable: false),
+                    RecommendatorId = table.Column<long>(type: "bigint", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -62,17 +62,17 @@ namespace SalesManagementSystemDB.Migrations
                         column: x => x.GenderId,
                         principalTable: "Gender",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Sale",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TimeStamp = table.Column<DateTime>(type: "time", nullable: false),
-                    ConsultantId = table.Column<int>(type: "int", nullable: false)
+                    ConsultantId = table.Column<long>(type: "bigint", nullable: false),
+                    TimeStamp = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -82,7 +82,7 @@ namespace SalesManagementSystemDB.Migrations
                         column: x => x.ConsultantId,
                         principalTable: "Consultant",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -93,7 +93,7 @@ namespace SalesManagementSystemDB.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProductId = table.Column<long>(type: "bigint", nullable: false),
                     Unit = table.Column<long>(type: "bigint", nullable: false),
-                    SaleId = table.Column<int>(type: "int", nullable: false)
+                    SaleId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -103,7 +103,7 @@ namespace SalesManagementSystemDB.Migrations
                         column: x => x.ProductId,
                         principalTable: "Product",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_SoldItem_Sale_SaleId",
                         column: x => x.SaleId,

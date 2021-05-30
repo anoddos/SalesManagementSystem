@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SalesManagementSystem.Models;
@@ -23,29 +22,28 @@ namespace SalesManagementSystem.Controllers
         }
 
         [HttpPost]
-        public int Create(Product product)
+        public ActionResult Create([FromBody]Product product)
         {
-            return _repository.Create(product);
+            return _repository.Create(product)? Ok() : BadRequest();
         }
-        
-        [HttpPut]
-        public int Update(long id, Product product)
+
+        [HttpPut("{id}")]
+        public ActionResult Update(long id, [FromBody]Product product)
         {
-            return _repository.Update(product);
+            return _repository.Update(product) ? Ok() : BadRequest();
         }
 
 
         [HttpGet]
         public IEnumerable<Product> Read()
         {
-            var rng = new Random();
             return _repository.Read();
         }
 
-        [HttpDelete]
-        public int Delete(Int64 id)
+        [HttpDelete("{id}")]
+        public ActionResult Delete(Int64 id)
         {
-            return _repository.Delete(id);
+            return _repository.Delete(id) ? Ok() : BadRequest();
         }
     }
 

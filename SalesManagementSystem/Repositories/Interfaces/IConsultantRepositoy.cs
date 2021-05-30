@@ -5,9 +5,9 @@ namespace SalesManagementSystem.Repositories.Interfaces
 {
     public interface IConsultantRepositoy
     {
-        int Create(Consultant consultant);
-        int Update(Consultant consultant);
-        IEnumerable<Sale> Read();
-        int Delete(long id);
+        bool Create(Consultant consultant);
+        bool Update(Consultant consultant);
+        IEnumerable<Consultant> Read();
+        bool Delete(long id);
     }
 }

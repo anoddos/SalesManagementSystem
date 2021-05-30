@@ -4,10 +4,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SalesManagementSystemDB.Models
 {
-    public partial class Sale
+    public class Sale
     {
 #nullable disable
-        public int Id { get; set; }
+        public long Id { get; set; }
+        public long ConsultantId { get; set; }
         
         public DateTime TimeStamp { get; set; }
 

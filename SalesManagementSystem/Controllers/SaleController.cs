@@ -22,29 +22,28 @@ namespace SalesManagementSystem.Controllers
         }
 
         [HttpPost]
-        public int Create(Sale sale)
+        public ActionResult Create([FromBody]Sale sale)
         {
-            return _repository.Create(sale);
+            return _repository.Create(sale) ? Ok() : BadRequest();
         }
 
-        [HttpPut]
-        public int Update(long id, Sale sale)
+        [HttpPut("{id}")]
+        public ActionResult Update(long id, [FromBody]Sale sale)
         {
-            return _repository.Update(sale);
+            sale.Id = id;
+            return _repository.Update(sale) ? Ok() : BadRequest();
         }
-
 
         [HttpGet]
         public IEnumerable<Sale> Read()
         {
-            var rng = new Random();
             return _repository.Read();
         }
 
-        [HttpDelete]
-        public int Delete(Int64 id)
+         [HttpDelete("{id}")]
+        public ActionResult Delete(Int64 id)
         {
-            return _repository.Delete(id);
+            return _repository.Delete(id) ? Ok() : BadRequest();
         }
     }
 }

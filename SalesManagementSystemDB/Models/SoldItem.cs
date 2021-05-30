@@ -1,8 +1,9 @@
 ﻿namespace SalesManagementSystemDB.Models
 {
-    public partial class SoldItem
+    public class SoldItem
     {
         public long Id { get; set; }
+        public long ProductId { get; set; }
         
         public Product Product { get; set; }
         

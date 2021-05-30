@@ -41,6 +41,11 @@ namespace SalesManagementSystem.Controllers
         {
             return _repository.GetSumOfConsultantSales(startDate, endDate);
         }
+        [HttpGet("GetConsultantsBestSales")] 
+        public IEnumerable<ConsultantsBestSales> GetConsultantsBestSales(DateTime? startDate, DateTime? endDate)
+        {
+            return _repository.GetConsultantsBestSales(startDate, endDate);
+        }
 
     }
 }

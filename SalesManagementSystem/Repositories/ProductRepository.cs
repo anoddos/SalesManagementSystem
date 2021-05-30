@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using SalesManagementSystem.Models;
 using SalesManagementSystem.Repositories.Interfaces;
 using SalesManagementSystemDB.DataAccess;
+using db = SalesManagementSystemDB.Models;
 
 namespace SalesManagementSystem.Repositories
 {
@@ -13,24 +15,54 @@ namespace SalesManagementSystem.Repositories
         {
             this._dbContext = dbContext;
         }
-        public int Create(Product product)
+        public bool Create(Product product)
         {
-            throw new System.NotImplementedException();
+            db.Product dbProduct = new db.Product
+            {
+                Name = product.Name,
+                Code = product.Code,
+                Price = product.Price
+            };
+
+            _dbContext.Add(dbProduct);
+            return _dbContext.SaveChanges() > 0;
         }
 
-        public int Delete(long id)
+        public bool Update(Product product)
         {
-            throw new System.NotImplementedException();
+            db.Product dbProduct = _dbContext.Product.SingleOrDefault(x => x.Id == product.Id);
+            if (dbProduct != null)
+            {
+                dbProduct.Name = product.Name;
+                dbProduct.Code = product.Code;
+                dbProduct.Price = product.Price;
+                _dbContext.Add(dbProduct);
+            }
+
+            return _dbContext.SaveChanges() > 0;
         }
 
         public IEnumerable<Product> Read()
         {
-            throw new System.NotImplementedException();
+            var dbProducts = _dbContext.Product.Select(x => new Product()
+            {
+                Name = x.Name,
+                Code = x.Code,
+                Price = x.Price
+            }).ToList();
+
+            return dbProducts;
         }
 
-        public int Update(Product product)
+        public bool Delete(long id)
         {
-            throw new System.NotImplementedException();
+            var toBeDeleted = _dbContext.Product.SingleOrDefault(x => x.Id == id);
+            if (toBeDeleted != null)
+            {
+                _dbContext.Remove(toBeDeleted);
+            }
+
+            return _dbContext.SaveChanges() > 0;
         }
     }
 }

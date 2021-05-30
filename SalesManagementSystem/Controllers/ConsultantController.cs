@@ -22,29 +22,39 @@ namespace SalesManagementSystem.Controllers
         }
 
         [HttpPost]
-        public int Create([FromBody]Consultant consultant)
+        public ActionResult Create([FromBody]Consultant consultant)
         {
-            
-            return _repository.Create(consultant);
+            if (consultant.RecommendatorId == 0)
+            {
+                consultant.RecommendatorId = null;
+            }
+
+            return _repository.Create(consultant) ? Ok() : BadRequest();
         }
 
         [HttpPut("{id}")]
-        public int Update(long id, [FromBody]Consultant consultant)
+        public ActionResult Update(long id, [FromBody]Consultant consultant)
         {
-            return _repository.Update(consultant);
+            consultant.Id = id;
+            if (consultant.RecommendatorId == 0)
+            {
+                consultant.RecommendatorId = null;
+            }
+
+            return _repository.Update(consultant) ? Ok() : BadRequest(); 
         }
 
         [HttpGet]
-        public IEnumerable<Sale> Read()
+        public IEnumerable<Consultant> Read()
         {
-            var rng = new Random();
             return _repository.Read();
         }
 
+
         [HttpDelete("{id}")]
-        public int Delete(long id)
+        public ActionResult Delete(long id)
         {
-            return _repository.Delete(id);
+            return _repository.Delete(id) ? Ok() : BadRequest();
         }
 
     }
