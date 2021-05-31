@@ -13,9 +13,10 @@ namespace SalesManagementSystem.Models
         public String Name { get; set; }
         
         [Required]
+        [Range(0.01, int.MaxValue)]
         public Double Price { get; set; }
         
-        [Required]
+
         public String Code { get; set; }
 
     }

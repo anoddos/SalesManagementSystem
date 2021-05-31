@@ -9,6 +9,6 @@ namespace SalesManagementSystem.Models.CalculatedInformationModels
         public long PersonalId { get; set; }
         public DateTime BirthDate { get; set; }
         public long SoldByConsultant { get; set; }
-        public long TotalSubSales { get; set; }
+        public long SoldBySubConsultant { get; set; }
     }
 }

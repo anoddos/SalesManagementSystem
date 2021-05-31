@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Net;
+using Microsoft.EntityFrameworkCore;
 using SalesManagementSystem.Models;
 using SalesManagementSystem.Models.CalculatedInformationModels;
 using SalesManagementSystem.Repositories.Interfaces;
 using SalesManagementSystemDB.DataAccess;
+using db = SalesManagementSystemDB.Models;
 
 namespace SalesManagementSystem.Repositories
 {
@@ -46,31 +49,127 @@ namespace SalesManagementSystem.Repositories
             });
         }
 
-        public IEnumerable<ProductSellers> GetProductSellers(DateTime startDate, DateTime endDate, int minUnit, string code)
+        public IEnumerable<ProductSellers> GetProductSellers(DateTime startDate, DateTime endDate, int minUnit,
+            string code)
         {
-            var validProducts = _dbContext.Product.Where(x => code == null || x.Code == code);
-            var query = _dbContext.Sale
-                .Join(_dbContext.Consultant, sale => sale.ConsultantId, consultant => consultant.Id,
-                    (sale, consultant) => new
-                    {
-                        SaleId = sale.Id, ConsultantId = consultant.Id, ConsultantName = consultant.Name,
-                        PersonalId = consultant.PersonalId, BirthDate = consultant.BirthDate
-                    });
-                //.Join(_dbContext.SoldItem, sale => sale.SaleId, soldItem => soldItem.)
+            var productSellers = from sale in _dbContext.Sale
+                                 join consultant in _dbContext.Consultant on sale.ConsultantId equals consultant.Id
+                join soldItem in _dbContext.SoldItem on sale.Id equals soldItem.SaleId
+                join product in _dbContext.Product on soldItem.ProductId equals product.Id
+                where sale.TimeStamp > startDate && sale.TimeStamp < endDate
+                group new {product, consultant, soldItem} by new
+                {
+                    consultantId = consultant.Id, product.Code, name = consultant.Name + " " + consultant.LastName,
+                    consultant.BirthDate, consultant.PersonalId
+                } into grp
+                select new ProductSellers()
+                {
+                    ConsultantId = grp.Key.consultantId,
+                    ConsultantName = grp.Key.name,
+                    PersonalId = grp.Key.PersonalId,
+                    BirthDate = grp.Key.BirthDate,
+                    ProductCode = grp.Key.Code,
+                    SalesCount = grp.AsEnumerable().Select(x => x.soldItem.Unit).Sum()
+                };
 
-
-            return null;
+            return productSellers.Where(x => x.SalesCount >= minUnit && (x.ProductCode == code || code == null));
         }
 
         public IEnumerable<SumOfConsultantSales> GetSumOfConsultantSales(DateTime? startDate, DateTime? endDate)
         {
-            throw new NotImplementedException();
+            IDictionary<long, long> subConsultantSums = GetSumOfSubConsultantSales();
+
+            var result = from consultant in _dbContext.Consultant
+                join sale in _dbContext.Sale on consultant.Id equals sale.ConsultantId into gj
+                from subSale in gj.DefaultIfEmpty()
+                group new {consultant} by new
+                {
+                    consultantId = consultant.Id,
+                    name = consultant.Name + " " + consultant.LastName,
+                    consultant.BirthDate,
+                    consultant.PersonalId,
+                } into grp
+                select new SumOfConsultantSales()
+                {
+                    ConsultantId = grp.Key.consultantId,
+                    ConsultantName = grp.Key.name,
+                    BirthDate = grp.Key.BirthDate,
+                    PersonalId = grp.Key.PersonalId,
+                    SoldByConsultant = grp.Count(),
+                    SoldBySubConsultant = subConsultantSums[grp.Key.consultantId]
+                };
+            
+            return result;
         }
 
-        public IEnumerable<ConsultantsBestSales> GetConsultantsBestSales(DateTime? startDate, DateTime? endDate)
+
+        public long GetSubConsultantsRecursive(long recommendatorId)
         {
-            throw new NotImplementedException();
+            var recommended = _dbContext.Consultant.Where(x => x.RecommendatorId == recommendatorId);
+            foreach (var consultant in recommended)
+            {
+                var res = GetSubConsultantsRecursive(consultant.Id);
+                return res + _dbContext.Sale.Count(x => x.ConsultantId == recommendatorId);
+            }
+            return 0;
         }
 
+        public IDictionary <long, long> GetSumOfSubConsultantSales()
+        {
+            IDictionary<long, long> subSalesDictionary = new Dictionary<long, long>();
+            var consultantIds = _dbContext.Consultant.Select(x => x.Id);
+
+            foreach (var consultantId in consultantIds)
+            {
+                var count = GetSubConsultantsRecursive(consultantId);
+                subSalesDictionary.Add(new KeyValuePair<long, long>(consultantId, count));
+            }
+            return subSalesDictionary;
+        }
+       public IEnumerable<ConsultantsBestSales> GetConsultantsBestSales(DateTime? startDate, DateTime? endDate)
+        {
+            var productSellers = from sale in _dbContext.Sale
+                join consultant in _dbContext.Consultant on sale.ConsultantId equals consultant.Id
+                join soldItem in _dbContext.SoldItem on sale.Id equals soldItem.SaleId
+                join product in _dbContext.Product on soldItem.ProductId equals product.Id
+                where sale.TimeStamp > startDate && sale.TimeStamp < endDate
+                group new {product, consultant, soldItem} by new
+                {
+                    consultantId = consultant.Id, product.Code, name = consultant.Name + " " + consultant.LastName,
+                    consultant.BirthDate, consultant.PersonalId, productName = product.Name
+                }into grp
+                select new
+                {
+                    grp.Key.consultantId,
+                    grp.Key.name,
+                    grp.Key.PersonalId,
+                    grp.Key.BirthDate,
+                    grp.Key.Code,
+                    grp.Key.productName,
+                    ProductCount = grp.Sum(x=>x.soldItem.Unit), 
+                    Profit = grp.Sum(x=> x.soldItem.Unit * x.product.Price)
+                };
+
+            var res = productSellers.ToList();
+
+            var mostProfitable = productSellers.AsEnumerable().GroupBy(x => x.consultantId,
+                (key, g) => g.OrderByDescending(x => x.Profit).FirstOrDefault());
+            var mostFrequent = productSellers.AsEnumerable().GroupBy(x => x.consultantId,
+                (key, g) => g.OrderByDescending(x => x.ProductCount).FirstOrDefault());
+
+            return mostProfitable.Select(x => new ConsultantsBestSales()
+            {
+                ConsultantId = x.consultantId,
+                ConsultantName = x.name,
+                PersonalId = x.PersonalId,
+                BirthDate = x.BirthDate,
+                FrequentProductCode = mostFrequent.SingleOrDefault(xx => xx.consultantId == x.consultantId).Code,
+                FrequentProductCount = mostFrequent.SingleOrDefault(xx => xx.consultantId == x.consultantId).ProductCount,
+                FrequentProductName = mostFrequent.SingleOrDefault(xx => xx.consultantId == x.consultantId).productName,
+                ProfitableProductCode = x.Code,
+                ProfitableProductCount = x.ProductCount,
+                ProfitableProductName = x.productName
+            });
+        }
     }
 }

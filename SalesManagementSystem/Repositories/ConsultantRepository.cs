@@ -42,7 +42,7 @@ namespace SalesManagementSystem.Repositories
                 dbConsultant.GenderId = consultant.GenderId;
                 dbConsultant.Name = consultant.Name;
                 dbConsultant.LastName = consultant.LastName;
-                _dbContext.Add(dbConsultant);
+                _dbContext.Update(dbConsultant);
             }
 
             return _dbContext.SaveChanges() > 0;

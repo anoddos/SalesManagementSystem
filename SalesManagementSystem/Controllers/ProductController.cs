@@ -30,6 +30,7 @@ namespace SalesManagementSystem.Controllers
         [HttpPut("{id}")]
         public ActionResult Update(long id, [FromBody]Product product)
         {
+            product.Id = id;
             return _repository.Update(product) ? Ok() : BadRequest();
         }
 

@@ -35,6 +35,8 @@ namespace SalesManagementSystem
                 options.UseSqlServer(Configuration.GetConnectionString("Default"));
             });
 
+            services.AddDbContext<SalesDbContext>();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

@@ -5,6 +5,7 @@ namespace SalesManagementSystemDB.DataAccess
 {
     public class SalesDbContext : DbContext
     {
+
         public SalesDbContext(DbContextOptions<SalesDbContext> options): base(options) { }
         
         public virtual DbSet<Gender> Gender { get; set; }

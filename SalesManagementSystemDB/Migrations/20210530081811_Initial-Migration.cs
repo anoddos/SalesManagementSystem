@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SalesManagementSystemDB.Migrations
 {
-    public partial class initialmigration : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,7 +13,7 @@ namespace SalesManagementSystemDB.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(50)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(30)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -26,9 +26,9 @@ namespace SalesManagementSystemDB.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(50)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(30)", nullable: false),
                     Price = table.Column<double>(type: "float", nullable: false),
-                    Code = table.Column<string>(type: "nvarchar(50)", nullable: false)
+                    Code = table.Column<string>(type: "nvarchar(30)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -41,8 +41,8 @@ namespace SalesManagementSystemDB.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(50)", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(50)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(30)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(30)", nullable: false),
                     PersonalId = table.Column<long>(type: "bigint", nullable: false),
                     BirthDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     GenderId = table.Column<int>(type: "int", nullable: false),
@@ -92,8 +92,8 @@ namespace SalesManagementSystemDB.Migrations
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProductId = table.Column<long>(type: "bigint", nullable: false),
-                    Unit = table.Column<long>(type: "bigint", nullable: false),
-                    SaleId = table.Column<long>(type: "bigint", nullable: false)
+                    SaleId = table.Column<long>(type: "bigint", nullable: false),
+                    Unit = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -109,7 +109,7 @@ namespace SalesManagementSystemDB.Migrations
                         column: x => x.SaleId,
                         principalTable: "Sale",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

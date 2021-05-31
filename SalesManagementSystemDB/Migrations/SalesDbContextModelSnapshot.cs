@@ -27,16 +27,16 @@ namespace SalesManagementSystemDB.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("BirthDate")
-                        .HasColumnType("time");
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("GenderId")
                         .HasColumnType("int");
 
                     b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<long>("PersonalId")
                         .HasColumnType("bigint");
@@ -61,7 +61,7 @@ namespace SalesManagementSystemDB.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(30)");
 
                     b.HasKey("Id");
 
@@ -76,10 +76,10 @@ namespace SalesManagementSystemDB.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Code")
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<double>("Price")
                         .HasColumnType("float");
@@ -100,7 +100,7 @@ namespace SalesManagementSystemDB.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<DateTime>("TimeStamp")
-                        .HasColumnType("time");
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -119,7 +119,7 @@ namespace SalesManagementSystemDB.Migrations
                     b.Property<long>("ProductId")
                         .HasColumnType("bigint");
 
-                    b.Property<long?>("SaleId")
+                    b.Property<long>("SaleId")
                         .HasColumnType("bigint");
 
                     b.Property<long>("Unit")
@@ -170,11 +170,15 @@ namespace SalesManagementSystemDB.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SalesManagementSystemDB.Models.Sale", null)
+                    b.HasOne("SalesManagementSystemDB.Models.Sale", "Sale")
                         .WithMany("SoldProducts")
-                        .HasForeignKey("SaleId");
+                        .HasForeignKey("SaleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Product");
+
+                    b.Navigation("Sale");
                 });
 
             modelBuilder.Entity("SalesManagementSystemDB.Models.Sale", b =>

@@ -28,7 +28,7 @@ namespace SalesManagementSystem.Controllers
         [HttpGet("GetSalesWithinPriceRange")]
         public IEnumerable<SalesWithinPriceRange> GetSalesWithinPriceRange(long startPrice, long endPrice, DateTime startDate,DateTime endDate)
         {
-            return _repository.GetSalesWithinPriceRange(startPrice, endDate, startDate, endDate);
+            return _repository.GetSalesWithinPriceRange(startPrice, endPrice, startDate, endDate);
         } 
         [HttpGet("GetProductSellers")]
         public IEnumerable<ProductSellers> GetProductSellers(DateTime startDate,DateTime endDate, int minUnit, String code)

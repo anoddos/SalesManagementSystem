@@ -36,7 +36,7 @@ namespace SalesManagementSystem.Repositories
                 dbProduct.Name = product.Name;
                 dbProduct.Code = product.Code;
                 dbProduct.Price = product.Price;
-                _dbContext.Add(dbProduct);
+                _dbContext.Update(dbProduct);
             }
 
             return _dbContext.SaveChanges() > 0;

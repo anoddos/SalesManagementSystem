@@ -14,6 +14,6 @@ namespace SalesManagementSystemDB.Models
 
         public Consultant Consultant { get; set; }
         
-        public ICollection<SoldItem> SoldProduct { get; set; }
+        public ICollection<SoldItem> SoldProducts { get; set; }
     }
 }
