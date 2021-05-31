@@ -18,6 +18,5 @@ namespace SalesManagementSystem.Models
     {
         public string Message { get; set; }
         public int ErrorCode { get; set; }
-        public string Exception { get; set; }
     }
 }

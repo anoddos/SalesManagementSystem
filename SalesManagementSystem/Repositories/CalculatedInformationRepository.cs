@@ -110,7 +110,7 @@ namespace SalesManagementSystem.Repositories
                 var res = GetSubConsultantsRecursive(consultant.Id);
                 return res + _dbContext.Sale.Count(x => x.ConsultantId == recommendatorId);
             }
-            return 0;
+            return _dbContext.Sale.Count(x => x.ConsultantId == recommendatorId);
         }
 
         private IDictionary <long, long> GetSumOfSubConsultantSales()
@@ -150,9 +150,9 @@ namespace SalesManagementSystem.Repositories
                 };
 
             var mostProfitable = productSellers.AsEnumerable().GroupBy(x => x.consultantId,
-                (key, g) => g.OrderByDescending(x => x.Profit).FirstOrDefault());
+                (_, g) => g.OrderByDescending(x => x.Profit).FirstOrDefault());
             var mostFrequent = productSellers.AsEnumerable().GroupBy(x => x.consultantId,
-                (key, g) => g.OrderByDescending(x => x.ProductCount).FirstOrDefault());
+                (_, g) => g.OrderByDescending(x => x.ProductCount).FirstOrDefault());
 
             return mostProfitable.Select(x => new ConsultantsBestSales()
             {
@@ -160,9 +160,9 @@ namespace SalesManagementSystem.Repositories
                 ConsultantName = x.name,
                 PersonalId = x.PersonalId,
                 BirthDate = x.BirthDate,
-                FrequentProductCode = mostFrequent.SingleOrDefault(xx => xx.consultantId == x.consultantId).Code,
-                FrequentProductCount = mostFrequent.SingleOrDefault(xx => xx.consultantId == x.consultantId).ProductCount,
-                FrequentProductName = mostFrequent.SingleOrDefault(xx => xx.consultantId == x.consultantId).productName,
+                FrequentProductCode = mostFrequent.Single(xx => xx.consultantId == x.consultantId).Code,
+                FrequentProductCount = mostFrequent.Single(xx => xx.consultantId == x.consultantId).ProductCount,
+                FrequentProductName = mostFrequent.Single(xx => xx.consultantId == x.consultantId).productName,
                 ProfitableProductCode = x.Code,
                 ProfitableProductCount = x.ProductCount,
                 ProfitableProductName = x.productName

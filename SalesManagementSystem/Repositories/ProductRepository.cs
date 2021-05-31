@@ -32,6 +32,7 @@ namespace SalesManagementSystem.Repositories
 
         public bool Update(Product product)
         {
+            ValidateChanges(product);
             db.Product dbProduct = _dbContext.Product.SingleOrDefault(x => x.Id == product.Id);
             if (dbProduct != null)
             {
@@ -60,8 +61,7 @@ namespace SalesManagementSystem.Repositories
         {
             if (_dbContext.SoldItem.Any(x => x.ProductId == id))
             {
-                ErrorModel errorModel = new ErrorModel();
-                errorModel.Message = "This ProductCode is already sold. you cant delete";
+                var errorModel = new ErrorModel {Message = "This ProductCode is already sold. you cant delete"};
                 throw new MyException(errorModel, null);
             }
             
@@ -78,8 +78,7 @@ namespace SalesManagementSystem.Repositories
         {
             if (_dbContext.Product.Any(x => x.Code == product.Code))
             {
-                ErrorModel errorModel = new ErrorModel();
-                errorModel.Message = "This ProductCode is already registered.";
+                var errorModel = new ErrorModel {Message = "This ProductCode is already registered."};
                 throw new MyException(errorModel, null);
             }
         }
