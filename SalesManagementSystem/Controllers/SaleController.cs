@@ -12,12 +12,10 @@ namespace SalesManagementSystem.Controllers
     [Route("[controller]")]
     public class SaleController : ControllerBase
     {
-        private readonly ILogger<SaleController> _logger;
         private readonly ISaleRepository _repository;
 
-        public SaleController(ILogger<SaleController> logger, ISaleRepository repository )
+        public SaleController(ISaleRepository repository )
         {
-            _logger = logger;
             _repository = repository;
         }
 
@@ -40,7 +38,8 @@ namespace SalesManagementSystem.Controllers
             return _repository.Read();
         }
 
-         [HttpDelete("{id}")]
+        
+        [HttpDelete("{id}")]
         public ActionResult Delete(Int64 id)
         {
             return _repository.Delete(id) ? Ok() : BadRequest();

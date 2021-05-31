@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
+using Microsoft.AspNetCore.Http;
 using SalesManagementSystem.Models;
 using SalesManagementSystem.Repositories.Interfaces;
 using SalesManagementSystemDB.DataAccess;
@@ -11,7 +12,7 @@ namespace SalesManagementSystem.Repositories
     public class ConsultantRepository : IConsultantRepositoy
     {
 
-        private SalesDbContext _dbContext;
+        private readonly SalesDbContext _dbContext;
         public ConsultantRepository(SalesDbContext dbContext)
         {
             this._dbContext = dbContext;
@@ -71,8 +72,8 @@ namespace SalesManagementSystem.Repositories
             {
                 _dbContext.Remove(toBeDeleted);
             }
-
             return _dbContext.SaveChanges() > 0;
         }
+
     }
 }

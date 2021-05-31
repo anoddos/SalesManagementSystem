@@ -12,12 +12,10 @@ namespace SalesManagementSystem.Controllers
     [Route("[controller]")]
     public class ConsultantController : ControllerBase
     {
-        private readonly ILogger<ConsultantController> _logger;
         private readonly IConsultantRepositoy _repository;
 
-        public ConsultantController(ILogger<ConsultantController> logger, IConsultantRepositoy repository)
+        public ConsultantController(IConsultantRepositoy repository)
         {
-            _logger = logger;
             _repository = repository;
         }
 
@@ -56,6 +54,5 @@ namespace SalesManagementSystem.Controllers
         {
             return _repository.Delete(id) ? Ok() : BadRequest();
         }
-
     }
 }

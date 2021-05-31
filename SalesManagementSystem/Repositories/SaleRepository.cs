@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using SalesManagementSystem.Models;
 using SalesManagementSystem.Repositories.Interfaces;
 using SalesManagementSystemDB.DataAccess;
@@ -10,7 +9,7 @@ namespace SalesManagementSystem.Repositories
 {
     public class SaleRepository : ISaleRepository
     {
-        private SalesDbContext _dbContext;
+        private readonly SalesDbContext _dbContext;
         public SaleRepository(SalesDbContext dbContext)
         {
             this._dbContext = dbContext;
@@ -51,10 +50,10 @@ namespace SalesManagementSystem.Repositories
             {
                 TimeStamp = x.TimeStamp,
                 ConsultantId = x.ConsultantId,
-                Products = x.SoldProducts.Select(x => new SoldItem()
+                Products = x.SoldProducts.Select(xx => new SoldItem()
                 {
-                    ProductId = x.ProductId,
-                    Unit = x.Unit
+                    ProductId = xx.ProductId,
+                    Unit = xx.Unit
                 }).ToList()
             }).ToList();
 
@@ -88,5 +87,6 @@ namespace SalesManagementSystem.Repositories
             _dbContext.RemoveRange(toBeDeleted);
             _dbContext.SaveChanges();
         }
+        
     }
 }

@@ -12,12 +12,10 @@ namespace SalesManagementSystem.Controllers
     [Route("[controller]")]
     public class ProductController : ControllerBase
     {
-        private readonly ILogger<ProductController> _logger;
         private readonly IProductRepository _repository;
 
-        public ProductController(ILogger<ProductController> logger, IProductRepository repository)
+        public ProductController(IProductRepository repository)
         {
-            _logger = logger;
             _repository = repository;
         }
 

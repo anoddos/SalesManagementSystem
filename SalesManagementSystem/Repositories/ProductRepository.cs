@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Http;
 using SalesManagementSystem.Models;
 using SalesManagementSystem.Repositories.Interfaces;
 using SalesManagementSystemDB.DataAccess;
@@ -10,13 +11,14 @@ namespace SalesManagementSystem.Repositories
     public class ProductRepository : IProductRepository
     {
         
-        private SalesDbContext _dbContext;
+        private readonly SalesDbContext _dbContext;
         public ProductRepository(SalesDbContext dbContext)
         {
             this._dbContext = dbContext;
         }
         public bool Create(Product product)
         {
+            ValidateChanges(product);
             db.Product dbProduct = new db.Product
             {
                 Name = product.Name,
@@ -30,6 +32,7 @@ namespace SalesManagementSystem.Repositories
 
         public bool Update(Product product)
         {
+            ValidateChanges(product);
             db.Product dbProduct = _dbContext.Product.SingleOrDefault(x => x.Id == product.Id);
             if (dbProduct != null)
             {
@@ -63,6 +66,16 @@ namespace SalesManagementSystem.Repositories
             }
 
             return _dbContext.SaveChanges() > 0;
+        }
+        
+        private bool ValidateChanges(Product product)
+        {
+            if (_dbContext.Product.Any(x => x.Code == product.Code))
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

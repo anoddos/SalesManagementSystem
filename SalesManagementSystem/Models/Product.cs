@@ -16,7 +16,6 @@ namespace SalesManagementSystem.Models
         [Range(0.01, int.MaxValue)]
         public Double Price { get; set; }
         
-
         public String Code { get; set; }
 
     }
