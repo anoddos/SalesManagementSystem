@@ -32,7 +32,6 @@ namespace SalesManagementSystem.Repositories
 
         public bool Update(Product product)
         {
-            ValidateChanges(product);
             db.Product dbProduct = _dbContext.Product.SingleOrDefault(x => x.Id == product.Id);
             if (dbProduct != null)
             {
