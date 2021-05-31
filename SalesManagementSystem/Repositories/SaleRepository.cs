@@ -16,6 +16,7 @@ namespace SalesManagementSystem.Repositories
         }
         public bool Create(Sale sale)
         {
+            ValidateChanges(sale);
             db.Sale dbSale = new db.Sale()
             {
                 TimeStamp = sale.TimeStamp,
@@ -32,6 +33,7 @@ namespace SalesManagementSystem.Repositories
             return _dbContext.SaveChanges() > 0;
         }
 
+      
         public bool Delete(long id)
         {
             var toBeDeleted = _dbContext.Sale.SingleOrDefault(x => x.Id == id);
@@ -62,6 +64,7 @@ namespace SalesManagementSystem.Repositories
 
         public bool Update(Sale sale)
         {
+            ValidateChanges(sale);
             db.Sale dbSale = _dbContext.Sale.SingleOrDefault(x => x.Id == sale.Id);
             if (dbSale != null)
             {
@@ -86,6 +89,26 @@ namespace SalesManagementSystem.Repositories
             var toBeDeleted = _dbContext.SoldItem.Where(x => x.SaleId == saleId);
             _dbContext.RemoveRange(toBeDeleted);
             _dbContext.SaveChanges();
+        }
+        
+        private void ValidateChanges(Sale sale)
+        {
+            if (!_dbContext.Consultant.Any(x => x.Id == sale.ConsultantId))
+            {
+                ErrorModel errorModel = new ErrorModel();
+                errorModel.Message = "Consultant doesn't exists.";
+                throw new MyException(errorModel, null);
+            }
+
+            foreach (var product in sale.Products)
+            {
+                if (!_dbContext.Product.Any(x => x.Id == product.ProductId))
+                {
+                    ErrorModel errorModel = new ErrorModel();
+                    errorModel.Message = $"Product: {product.ProductId} doesn't exists.";
+                    throw new MyException(errorModel, null);
+                }
+            }
         }
         
     }

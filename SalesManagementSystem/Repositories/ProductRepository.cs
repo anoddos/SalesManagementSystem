@@ -59,6 +59,13 @@ namespace SalesManagementSystem.Repositories
 
         public bool Delete(long id)
         {
+            if (_dbContext.SoldItem.Any(x => x.ProductId == id))
+            {
+                ErrorModel errorModel = new ErrorModel();
+                errorModel.Message = "This ProductCode is already sold. you cant delete";
+                throw new MyException(errorModel, null);
+            }
+            
             var toBeDeleted = _dbContext.Product.SingleOrDefault(x => x.Id == id);
             if (toBeDeleted != null)
             {
@@ -68,14 +75,14 @@ namespace SalesManagementSystem.Repositories
             return _dbContext.SaveChanges() > 0;
         }
         
-        private bool ValidateChanges(Product product)
+        private void ValidateChanges(Product product)
         {
             if (_dbContext.Product.Any(x => x.Code == product.Code))
             {
-                return false;
+                ErrorModel errorModel = new ErrorModel();
+                errorModel.Message = "This ProductCode is already registered.";
+                throw new MyException(errorModel, null);
             }
-
-            return true;
         }
     }
 }

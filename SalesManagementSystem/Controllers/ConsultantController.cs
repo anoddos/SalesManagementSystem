@@ -22,6 +22,7 @@ namespace SalesManagementSystem.Controllers
         [HttpPost]
         public ActionResult Create([FromBody]Consultant consultant)
         {
+        
             if (consultant.RecommendatorId == 0)
             {
                 consultant.RecommendatorId = null;

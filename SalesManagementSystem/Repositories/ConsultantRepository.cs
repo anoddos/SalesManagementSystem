@@ -19,6 +19,7 @@ namespace SalesManagementSystem.Repositories
         }
         public bool Create(Consultant consultant)
         {
+            ValidateChanges(consultant);
             db.Consultant dbConsultant = new db.Consultant
             {
                 Name = consultant.Name,
@@ -33,8 +34,11 @@ namespace SalesManagementSystem.Repositories
             return _dbContext.SaveChanges() > 0;
         }
 
+        
+
         public bool Update(Consultant consultant)
         {
+            ValidateChanges(consultant);
             db.Consultant dbConsultant = _dbContext.Consultant.SingleOrDefault(x => x.Id == consultant.Id);
             if (dbConsultant != null)
             {
@@ -67,12 +71,41 @@ namespace SalesManagementSystem.Repositories
 
         public bool Delete(long id)
         {
+            if (_dbContext.Consultant.Any(x => x.RecommendatorId == id))
+            {
+                ErrorModel errorModel = new ErrorModel();
+                errorModel.Message = "This Consultant is others recommender. you cant delete";
+                throw new MyException(errorModel, null);
+            }
+            
             var toBeDeleted = _dbContext.Consultant.SingleOrDefault(x => x.Id == id);
             if (toBeDeleted != null)
             {
                 _dbContext.Remove(toBeDeleted);
             }
             return _dbContext.SaveChanges() > 0;
+        }
+        
+        private void ValidateChanges(Consultant consultant)
+        {
+            if (consultant.RecommendatorId != null && !_dbContext.Consultant.Any(x => x.Id == consultant.RecommendatorId))
+            {
+                ErrorModel errorModel = new ErrorModel();
+                errorModel.Message = "RecomendatorId is not valid.";
+                throw new MyException(errorModel, null);
+            }
+            if (!_dbContext.Gender.Any(x => x.Id == consultant.GenderId))
+            {
+                ErrorModel errorModel = new ErrorModel();
+                errorModel.Message = "GenderId is not valid.";
+                throw new MyException(errorModel, null);
+            }
+            if (_dbContext.Consultant.Any(x => x.PersonalId == consultant.PersonalId))
+            {
+                ErrorModel errorModel = new ErrorModel();
+                errorModel.Message = "this personal Id is already registered.";
+                throw new MyException(errorModel, null);
+            }
         }
 
     }

@@ -13,6 +13,7 @@ using System.Linq;
 using SalesManagementSystem.Repositories;
 using SalesManagementSystem.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using SalesManagementSystem.Extentions;
 using SalesManagementSystemDB.DataAccess;
 
 namespace SalesManagementSystem
@@ -64,6 +65,8 @@ namespace SalesManagementSystem
 
             app.UseHttpsRedirection();
 
+            app.UseMyExceptionHandler();
+            
             app.UseRouting();
 
             app.UseAuthorization();
@@ -72,6 +75,7 @@ namespace SalesManagementSystem
             {
                 endpoints.MapControllers();
             });
+            
         }
     }
 }
