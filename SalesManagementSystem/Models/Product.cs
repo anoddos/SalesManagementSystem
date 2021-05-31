@@ -10,13 +10,13 @@ namespace SalesManagementSystem.Models
         public long Id { get; set; }
         
         [Required]
-        public String Name { get; set; }
+        public string Name { get; set; }
         
         [Required]
         [Range(0.01, int.MaxValue)]
-        public Double Price { get; set; }
+        public double Price { get; set; }
         
-        public String Code { get; set; }
+        public string Code { get; set; }
 
     }
 }

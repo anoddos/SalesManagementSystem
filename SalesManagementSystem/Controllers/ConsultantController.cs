@@ -12,9 +12,9 @@ namespace SalesManagementSystem.Controllers
     [Route("[controller]")]
     public class ConsultantController : ControllerBase
     {
-        private readonly IConsultantRepositoy _repository;
+        private readonly IConsultantRepository _repository;
 
-        public ConsultantController(IConsultantRepositoy repository)
+        public ConsultantController(IConsultantRepository repository)
         {
             _repository = repository;
         }

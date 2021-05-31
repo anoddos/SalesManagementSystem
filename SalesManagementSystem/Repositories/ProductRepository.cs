@@ -19,7 +19,7 @@ namespace SalesManagementSystem.Repositories
         public bool Create(Product product)
         {
             ValidateChanges(product);
-            db.Product dbProduct = new db.Product
+            var dbProduct = new db.Product
             {
                 Name = product.Name,
                 Code = product.Code,
@@ -33,7 +33,7 @@ namespace SalesManagementSystem.Repositories
         public bool Update(Product product)
         {
             ValidateChanges(product);
-            db.Product dbProduct = _dbContext.Product.SingleOrDefault(x => x.Id == product.Id);
+            var dbProduct = _dbContext.Product.SingleOrDefault(x => x.Id == product.Id);
             if (dbProduct != null)
             {
                 dbProduct.Name = product.Name;

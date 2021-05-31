@@ -8,7 +8,7 @@ using db = SalesManagementSystemDB.Models;
 
 namespace SalesManagementSystem.Repositories
 {
-    public class CalculatedInformationRepository : ICalculatedInformationRepositoy
+    public class CalculatedInformationRepository : ICalculatedInformationRepository
     {
         private readonly SalesDbContext _dbContext;
         public CalculatedInformationRepository(SalesDbContext dbContext)

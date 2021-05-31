@@ -9,7 +9,7 @@ using db = SalesManagementSystemDB.Models;
 
 namespace SalesManagementSystem.Repositories
 {
-    public class ConsultantRepository : IConsultantRepositoy
+    public class ConsultantRepository : IConsultantRepository
     {
 
         private readonly SalesDbContext _dbContext;
@@ -25,7 +25,7 @@ namespace SalesManagementSystem.Repositories
                     ValidationOptions.Gender, 
                     ValidationOptions.PersonalId
             });
-            db.Consultant dbConsultant = new db.Consultant
+            var dbConsultant = new db.Consultant
             {
                 Name = consultant.Name,
                 LastName =  consultant.LastName,

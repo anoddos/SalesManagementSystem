@@ -8,14 +8,14 @@ namespace SalesManagementSystem.Models.CalculatedInformationModels
     public class ConsultantsBestSales
     {
         public long ConsultantId { get; set; }
-        public String ConsultantName { get; set; }
+        public string ConsultantName { get; set; }
         public long PersonalId { get; set; }
         public DateTime BirthDate { get; set; }
-        public String FrequentProductCode { get; set; }
-        public String FrequentProductName { get; set; }
+        public string FrequentProductCode { get; set; }
+        public string FrequentProductName { get; set; }
         public long FrequentProductCount { get; set; }
-        public String ProfitableProductCode { get; set; }
-        public String ProfitableProductName { get; set; }
+        public string ProfitableProductCode { get; set; }
+        public string ProfitableProductName { get; set; }
         public long ProfitableProductCount { get; set; }
     }
 }

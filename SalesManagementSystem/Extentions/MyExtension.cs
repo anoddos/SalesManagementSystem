@@ -16,9 +16,8 @@ namespace SalesManagementSystem.Extentions
                 {
                     context.Response.ContentType = "application/json";
 
-                    var currentException = context.Features.Get<IExceptionHandlerFeature>().Error as MyException;
-                    ErrorModel errorModel = new ErrorModel();
-                    if (currentException != null)
+                    var errorModel = new ErrorModel();
+                    if (context.Features.Get<IExceptionHandlerFeature>().Error is MyException currentException)
                     {
                         errorModel = currentException.ErrorModel;
                         errorModel.ErrorCode = StatusCodes.Status400BadRequest;
@@ -26,7 +25,7 @@ namespace SalesManagementSystem.Extentions
                     else
                     {
                         errorModel.ErrorCode = StatusCodes.Status500InternalServerError;
-                        errorModel.Message = $"Internal Server Error";
+                        errorModel.Message = "Internal Server Error";
                     }
                     context.Response.StatusCode = errorModel.ErrorCode;
                     var response = JsonConvert.SerializeObject(errorModel);

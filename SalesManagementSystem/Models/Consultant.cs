@@ -13,10 +13,10 @@ namespace SalesManagementSystem.Models
         public long Id { get; set; }
         
         [Required]
-        public String Name { get; set; }
+        public string Name { get; set; }
         
         [Required]
-        public String LastName { get; set; }
+        public string LastName { get; set; }
         
         [Required]
         public long PersonalId { get; set; }

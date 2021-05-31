@@ -3,7 +3,7 @@ using SalesManagementSystem.Models;
 
 namespace SalesManagementSystem.Repositories.Interfaces
 {
-    public interface IConsultantRepositoy
+    public interface IConsultantRepository
     {
         bool Create(Consultant consultant);
         bool Update(Consultant consultant);

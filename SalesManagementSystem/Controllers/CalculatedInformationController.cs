@@ -11,8 +11,8 @@ namespace SalesManagementSystem.Controllers
     [Route("[controller]")]
     public class CalculatedInformationController : ControllerBase
     {
-        private readonly ICalculatedInformationRepositoy _repository;
-        public CalculatedInformationController(ICalculatedInformationRepositoy repository)
+        private readonly ICalculatedInformationRepository _repository;
+        public CalculatedInformationController(ICalculatedInformationRepository repository)
         {
             _repository = repository;
         }

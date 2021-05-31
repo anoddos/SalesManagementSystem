@@ -46,8 +46,8 @@ namespace SalesManagementSystem
             
             services.AddControllersWithViews();
             services.AddMvc().AddXmlSerializerFormatters();
-            services.AddScoped<ICalculatedInformationRepositoy, CalculatedInformationRepository>();
-            services.AddScoped<IConsultantRepositoy, ConsultantRepository>();
+            services.AddScoped<ICalculatedInformationRepository, CalculatedInformationRepository>();
+            services.AddScoped<IConsultantRepository, ConsultantRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ISaleRepository, SaleRepository>();
             

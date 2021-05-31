@@ -5,7 +5,7 @@ using SalesManagementSystem.Models.CalculatedInformationModels;
 
 namespace SalesManagementSystem.Repositories.Interfaces
 {
-    public interface ICalculatedInformationRepositoy
+    public interface ICalculatedInformationRepository
     {
         IEnumerable<SalesOfConsultants> GetSalesOfConsultants(DateTime startDate, DateTime endDate);
         IEnumerable<SalesWithinPriceRange> GetSalesWithinPriceRange(long startPrice, long endPrice, DateTime startDate, DateTime endDate);
